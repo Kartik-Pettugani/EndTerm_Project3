@@ -21,7 +21,6 @@ function WeatherForecast({ destination }) {
 
         console.log('Fetching weather for:', destination);
         
-        // First get coordinates
         const geoResponse = await fetch(
           `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(destination)}&limit=1&appid=${API_KEY}`
         );
@@ -41,7 +40,6 @@ function WeatherForecast({ destination }) {
         const { lat, lon } = geoData[0];
         console.log('Coordinates found:', { lat, lon });
 
-        // Then get weather
         const weatherResponse = await fetch(
           `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
         );
@@ -99,8 +97,6 @@ function WeatherForecast({ destination }) {
       </div>
     );
   }
-
-  // Get one forecast per day
   const dailyForecasts = weather.list.filter((_, index) => index % 8 === 0).slice(0, 5);
 
   return (
