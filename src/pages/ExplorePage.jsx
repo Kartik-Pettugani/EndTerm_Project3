@@ -10,7 +10,6 @@ function ExplorePage() {
   const API_KEY = import.meta.env.VITE_FOURSQUARE_API_KEY;
 
   useEffect(() => {
-    // Get user's location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -35,7 +34,7 @@ function ExplorePage() {
     setError(null);
 
     try {
-      const ll = location ? `${location.lat},${location.lng}` : '40.7128,-74.0060'; // Default to NYC if no location
+      const ll = location ? `${location.lat},${location.lng}` : '40.7128,-74.0060'; 
       const response = await fetch(
         `https://api.foursquare.com/v3/places/search?query=${encodeURIComponent(search)}&ll=${ll}&limit=10`,
         {
