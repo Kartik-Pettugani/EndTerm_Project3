@@ -8,7 +8,6 @@ function MapRouteView({ locations = [], waypoints = [] }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Load Google Maps script
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAofnZ11UXQ2A2TqULauvFTZ9QGE4tgMB8&libraries=places,directions`;
     script.async = true;
@@ -81,12 +80,10 @@ function MapRouteView({ locations = [], waypoints = [] }) {
         const result = await directionsService.route(request);
         directionsRenderer.setDirections(result);
 
-        // Fit map to show the entire route
         const bounds = new window.google.maps.LatLngBounds();
         result.routes[0].bounds.extend(bounds);
         map.fitBounds(bounds);
 
-        // Add custom markers for each location
         locations.forEach((location, index) => {
           new window.google.maps.Marker({
             position: location,
