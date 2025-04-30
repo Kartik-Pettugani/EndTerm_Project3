@@ -8,7 +8,6 @@ export const TripProvider = ({ children }) => {
     return savedTrips ? JSON.parse(savedTrips) : [];
   });
 
-  // Save trips to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('trips', JSON.stringify(trips));
   }, [trips]);
