@@ -9,7 +9,6 @@ function TripCountdown() {
   const [countdown, setCountdown] = useState('');
 
   useEffect(() => {
-    // Find the next upcoming trip
     const now = new Date();
     const upcomingTrips = trips
       .filter(trip => new Date(trip.startDate) > now)
@@ -46,7 +45,7 @@ function TripCountdown() {
     };
 
     calculateCountdown();
-    const timer = setInterval(calculateCountdown, 60000); // Update every minute
+    const timer = setInterval(calculateCountdown, 60000); 
 
     return () => clearInterval(timer);
   }, [upcomingTrip]);
