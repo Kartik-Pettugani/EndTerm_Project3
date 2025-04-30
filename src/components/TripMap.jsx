@@ -8,7 +8,6 @@ function TripMap({ destination, places = [] }) {
   const markersRef = useRef([]);
 
   useEffect(() => {
-    // Load Google Maps script
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAofnZ11UXQ2A2TqULauvFTZ9QGE4tgMB8&libraries=places`;
     script.async = true;
@@ -21,7 +20,7 @@ function TripMap({ destination, places = [] }) {
 
     return () => {
       document.head.removeChild(script);
-      // Clean up markers
+     
       markersRef.current.forEach(marker => marker.setMap(null));
       markersRef.current = [];
     };
@@ -66,12 +65,12 @@ function TripMap({ destination, places = [] }) {
 
     const geocoder = new window.google.maps.Geocoder();
     
-    // First try with the exact destination
+    
     geocoder.geocode({ address: destination }, (results, status) => {
       if (status === 'OK' && results[0]) {
         handleGeocodeSuccess(results[0]);
       } else {
-        // If that fails, try with a more specific format
+       
         const formattedAddress = destination.includes(',') 
           ? destination 
           : `${destination}, ${destination}`;
@@ -91,11 +90,11 @@ function TripMap({ destination, places = [] }) {
       const location = result.geometry.location;
       const bounds = new window.google.maps.LatLngBounds();
       
-      // Clear existing markers
+      
       markersRef.current.forEach(marker => marker.setMap(null));
       markersRef.current = [];
 
-      // Add destination marker
+     
       const destinationMarker = new window.google.maps.Marker({
         position: location,
         map: map,
@@ -124,7 +123,7 @@ function TripMap({ destination, places = [] }) {
       markersRef.current.push(destinationMarker);
       bounds.extend(location);
 
-      // Add markers for nearby places
+      
       places.forEach(place => {
         if (place.lat && place.lng) {
           const position = { lat: place.lat, lng: place.lng };
@@ -159,9 +158,8 @@ function TripMap({ destination, places = [] }) {
         }
       });
 
-      // Fit map to show all markers
       map.fitBounds(bounds);
-      // Add a small padding
+      
       const padding = 50;
       map.padding = padding;
     };
